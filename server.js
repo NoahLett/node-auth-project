@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
 const { logger } = require('./middleware/logEvents');
-const errorHandler = require('./middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandler');
+const verifyJWT = require('./middleware/verifyJWT');
 const cors = require('cors');
-const corsOptions = require('./config/corsOptions')
+const corsOptions = require('./config/corsOptions');
 const PORT = process.env.PORT || 3500;
 const app = express();
 
@@ -20,6 +21,9 @@ app.use('/', express.static(path.join(__dirname, '/public')));
 app.use('/', require('./routes/root'));
 app.use('/register' , require('./routes/api/register'));
 app.use('/auth' , require('./routes/api/auth'));
+
+//Protected Routes
+app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
 
 app.all('*', (req, res) => {
