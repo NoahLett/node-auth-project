@@ -13,7 +13,7 @@ const handleLogOut = async (req, res) => {
     const refreshToken = cookies.jwt;
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     if (!foundUser) {
-        res.clearCookie('jwt', { httpOnly: true }); 
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); 
         return res.sendStatus(204);
     }
     const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
@@ -23,7 +23,7 @@ const handleLogOut = async (req, res) => {
     path.join(__dirname, '..', 'model', 'users.json'),
     JSON.stringify(usersDB.users)
     );
-    res.clearCookie('jwt', { httpOnly: true });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
     res.sendStatus(204);
 }
 
