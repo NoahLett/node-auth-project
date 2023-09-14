@@ -1,0 +1,1 @@
+20230913	21:24:40	70d9bd94-1d9f-44af-95b7-0ed2e7ee73c4	ReferenceError: whiteList is not defined
