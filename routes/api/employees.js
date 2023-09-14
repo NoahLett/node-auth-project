@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const employeesController = require('../../controllers/employeesController');
-const data = {};
-data.employees = require('../../model/employees.json');
+const ROLES_LIST = require('../../config/roles_list');
+const verifyRoles = require('../../middleware/verifyRoles');
 
 router.route('/')
     .get(employeesController.getAllEmployees)
-    .post(employeesController.createNewEmployee)
+    .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), employeesController.createNewEmployee)
     .put(employeesController.updateEmployee)
-    .delete(employeesController.deleteEmployee);
+    .delete(verifyRoles(ROLES_LIST.Admin), employeesController.deleteEmployee);
 
 router.route('/:id')
     .get(employeesController.getEmployee);
