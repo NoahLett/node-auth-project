@@ -15,3 +15,8 @@ const deleteUser = async (req, res) => {
     const result = await user.deleteOne({ _id: req.body.id });
     res.json(result);
 }
+
+module.exports = {
+    getAllUsers,
+    deleteUser
+}
