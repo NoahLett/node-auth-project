@@ -35,6 +35,7 @@ app.use('/logout' , require('./routes/api/logout'));
 //Protected Routes
 app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
+app.use('/users', require('./routes/api/users'));
 
 app.all('*', (req, res) => {
     res.status(404).json({ "message": `cannot ${req.method} ${req.url}` });
